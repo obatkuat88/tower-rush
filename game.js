@@ -157,6 +157,9 @@ const Game = (() => {
         // Initialize daily challenge
         initDailyChallenge();
         
+        // Initialize Telegram WebApp
+        initTelegram();
+        
         // Event listeners
         setupEventListeners();
         
@@ -344,6 +347,57 @@ const Game = (() => {
             'Chaos! Random enemy types and speeds.'
         ];
         return descriptions[index];
+    }
+    
+    // Telegram WebApp Integration
+    let telegramUser = null;
+    
+    function initTelegram() {
+        if (window.Telegram && window.Telegram.WebApp) {
+            const webApp = window.Telegram.WebApp;
+            
+            // Expand to full screen
+            webApp.ready();
+            webApp.expand();
+            
+            // Get user info
+            if (webApp.initDataUnsafe && webApp.initDataUnsafe.user) {
+                telegramUser = webApp.initDataUnsafe.user;
+                console.log('Telegram user:', telegramUser.first_name);
+            }
+            
+            // Set theme color to match prehistoric
+            webApp.setHeaderColor('#1a0f08');
+            webApp.setBackgroundColor('#1a0f08');
+            
+            // Add to global for sharing
+            window.TelegramWebApp = webApp;
+        }
+    }
+    
+    function shareToTelegram() {
+        const text = `🦴 Tower Rush\n📊 Score: ${score}\n📈 Level: ${level}\n💰 Portfolio: ${tokens}\n\nCan you beat my score?`;
+        
+        if (window.TelegramWebApp) {
+            // Use Telegram's native share if available
+            window.TelegramWebApp.shareUrl(text);
+        } else {
+            // Fallback to web share
+            const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(text)}`;
+            window.open(telegramUrl, '_blank');
+        }
+    }
+    
+    function shareChallenge() {
+        const challenge = getTodayChallenge();
+        const text = `🎯 Tower Rush Daily Challenge\n📊 My Score: ${score}\n📈 Level: ${level}\n🎯 Challenge: ${challenge.description}\n\nCan you beat my score?`;
+        
+        if (window.TelegramWebApp) {
+            window.TelegramWebApp.shareUrl(text);
+        } else {
+            const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(text)}`;
+            window.open(telegramUrl, '_blank');
+        }
     }
     
     function handleCanvasClick(e) {
@@ -979,14 +1033,6 @@ const Game = (() => {
         ctx.fillRect(enemy.x - 15, enemy.y - 25, 30, 4);
         ctx.fillStyle = enemy.color;
         ctx.fillRect(enemy.x - 15, enemy.y - 25, 30 * hpPercent, 4);
-    }
-    
-    function shareToTelegram() {
-        const text = `🎮 Tower Rush\n📊 Score: ${score}\n📈 Level: ${level}\n💰 Portfolio: ${tokens}\n\nCan you beat my score?`;
-        
-        // Try to open Telegram share
-        const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(text)}`;
-        window.open(telegramUrl, '_blank');
     }
     
     function generateLeaderboard() {
