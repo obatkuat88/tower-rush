@@ -8,6 +8,7 @@ const Sound = (() => {
     function init() {
         try {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            console.log('Sound initialized');
         } catch (e) {
             console.warn('Web Audio not supported');
             enabled = false;
@@ -138,8 +139,12 @@ const Game = (() => {
     
     // Initialize
     function init() {
+        console.log('Game init starting...');
+        
         canvas = document.getElementById('game-canvas');
         ctx = canvas.getContext('2d');
+        
+        console.log('Canvas found:', !!canvas);
         
         // Set canvas size immediately
         resizeCanvas();
@@ -168,9 +173,11 @@ const Game = (() => {
         
         // Event listeners
         setupEventListeners();
+        console.log('Event listeners setup complete');
         
         // Start game loop
         requestAnimationFrame(gameLoop);
+        console.log('Game loop started');
     }
     
     function resizeCanvas() {
@@ -179,10 +186,15 @@ const Game = (() => {
     }
     
     function setupEventListeners() {
+        console.log('Setting up event listeners...');
+        
         // Play button - support touch
         const playBtn = document.getElementById('play-btn');
-        playBtn.addEventListener('click', startGame);
-        playBtn.addEventListener('touchend', (e) => { e.preventDefault(); startGame(); });
+        console.log('Play button found:', !!playBtn);
+        if (playBtn) {
+            playBtn.addEventListener('click', () => { console.log('PLAY clicked'); startGame(); });
+            playBtn.addEventListener('touchend', (e) => { e.preventDefault(); console.log('PLAY touched'); startGame(); });
+        }
         
         // Replay button
         const replayBtn = document.getElementById('replay-btn');
@@ -982,13 +994,6 @@ const Game = (() => {
             ctx.lineTo(canvas.width, y);
             ctx.stroke();
         }
-        }
-        for (let y = 0; y < canvas.height; y += 40) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
         
         if (gameState === 'playing') {
             // Draw towers
@@ -1107,8 +1112,27 @@ const Game = (() => {
     }
     
     // Public API
-    return { init };
+    return { 
+        init,
+        startGame,
+        startChallenge,
+        showFriends,
+        showLeaderboard,
+        showHome,
+        shareToTelegram,
+        shareChallenge
+    };
 })();
+
+// Expose functions globally for onclick handlers
+window.startGame = Game.startGame;
+window.startChallenge = Game.startChallenge;
+window.showFriends = Game.showFriends;
+window.showLeaderboard = Game.showLeaderboard;
+window.showHome = Game.showHome;
+window.shareToTelegram = Game.shareToTelegram;
+window.shareChallenge = Game.shareChallenge;
+window.Game = Game;
 
 // Start game when DOM is ready
 document.addEventListener('DOMContentLoaded', Game.init);

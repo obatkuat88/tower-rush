@@ -23,10 +23,10 @@
                 🎯 Daily Challenge
             </div>
             <div class="menu-buttons">
-                <button id="play-btn" class="btn-primary">▶️ PLAY</button>
-                <button id="challenge-btn" class="btn-challenge">🎯</button>
-                <button id="friends-btn" class="btn-icon">👥</button>
-                <button id="leaderboard-btn" class="btn-icon">🏆</button>
+                <button id="play-btn" class="btn-primary" onclick="window.startGame && window.startGame()">▶️ PLAY</button>
+                <button id="challenge-btn" class="btn-challenge" onclick="window.startChallenge && window.startChallenge()">🎯</button>
+                <button id="friends-btn" class="btn-icon" onclick="window.showFriends && window.showFriends()">👥</button>
+                <button id="leaderboard-btn" class="btn-icon" onclick="window.showLeaderboard && window.showLeaderboard()">🏆</button>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
 
         <!-- Game Screen -->
         <div id="game-screen" class="screen">
-            <canvas id="game-canvas"></canvas>
+            <canvas id="game-canvas" ontouchend="event.preventDefault();"></canvas>
             <div id="hud">
                 <div class="hud-left">
                     <div class="level-display">LEVEL <span id="level-num">1</span></div>
@@ -115,9 +115,9 @@
                 </div>
                 <div class="new-high-score hidden" id="new-high-score">🎉 NEW HIGH SCORE! 🎉</div>
                 <div class="gameover-buttons">
-                    <button id="share-btn" class="btn-icon">📤</button>
-                    <button id="replay-btn" class="btn-icon">🔄</button>
-                    <button id="home-btn" class="btn-icon">🏠</button>
+                    <button id="share-btn" class="btn-icon" onclick="window.shareToTelegram && window.shareToTelegram()">📤</button>
+                    <button id="replay-btn" class="btn-icon" onclick="window.startGame && window.startGame()">🔄</button>
+                    <button id="home-btn" class="btn-icon" onclick="window.showHome && window.showHome()">🏠</button>
                 </div>
             </div>
         </div>
