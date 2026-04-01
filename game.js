@@ -141,8 +141,14 @@ const Game = (() => {
         canvas = document.getElementById('game-canvas');
         ctx = canvas.getContext('2d');
         
+        // Set canvas size immediately
         resizeCanvas();
+        
+        // Also handle orientation changes
         window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(resizeCanvas, 100);
+        });
         
         // Load high score
         highScore = parseInt(localStorage.getItem('towerRushHighScore')) || 0;
@@ -173,35 +179,72 @@ const Game = (() => {
     }
     
     function setupEventListeners() {
-        // Play button
-        document.getElementById('play-btn').addEventListener('click', startGame);
+        // Play button - support touch
+        const playBtn = document.getElementById('play-btn');
+        playBtn.addEventListener('click', startGame);
+        playBtn.addEventListener('touchend', (e) => { e.preventDefault(); startGame(); });
         
         // Replay button
-        document.getElementById('replay-btn').addEventListener('click', startGame);
+        const replayBtn = document.getElementById('replay-btn');
+        replayBtn.addEventListener('click', startGame);
+        replayBtn.addEventListener('touchend', (e) => { e.preventDefault(); startGame(); });
         
         // Home button
-        document.getElementById('home-btn').addEventListener('click', showHome);
+        const homeBtn = document.getElementById('home-btn');
+        homeBtn.addEventListener('click', showHome);
+        homeBtn.addEventListener('touchend', (e) => { e.preventDefault(); showHome(); });
         
         // Leaderboard button
-        document.getElementById('leaderboard-btn').addEventListener('click', showLeaderboard);
-        document.getElementById('back-btn').addEventListener('click', showHome);
+        const leaderBtn = document.getElementById('leaderboard-btn');
+        leaderBtn.addEventListener('click', showLeaderboard);
+        leaderBtn.addEventListener('touchend', (e) => { e.preventDefault(); showLeaderboard(); });
+        
+        const backBtn = document.getElementById('back-btn');
+        backBtn.addEventListener('click', showHome);
+        backBtn.addEventListener('touchend', (e) => { e.preventDefault(); showHome(); });
         
         // Friends button
-        document.getElementById('friends-btn').addEventListener('click', showFriends);
-        document.getElementById('friends-back-btn').addEventListener('click', showHome);
-        document.getElementById('add-friend-btn').addEventListener('click', handleAddFriend);
+        const friendsBtn = document.getElementById('friends-btn');
+        friendsBtn.addEventListener('click', showFriends);
+        friendsBtn.addEventListener('touchend', (e) => { e.preventDefault(); showFriends(); });
+        
+        const friendsBackBtn = document.getElementById('friends-back-btn');
+        friendsBackBtn.addEventListener('click', showHome);
+        friendsBackBtn.addEventListener('touchend', (e) => { e.preventDefault(); showHome(); });
+        
+        const addFriendBtn = document.getElementById('add-friend-btn');
+        addFriendBtn.addEventListener('click', handleAddFriend);
+        addFriendBtn.addEventListener('touchend', (e) => { e.preventDefault(); handleAddFriend(); });
         
         // Challenge button
-        document.getElementById('challenge-btn').addEventListener('click', startChallenge);
-        document.getElementById('challenge-back-btn').addEventListener('click', showHome);
-        document.getElementById('challenge-share-btn').addEventListener('click', shareChallenge);
+        const challengeBtn = document.getElementById('challenge-btn');
+        challengeBtn.addEventListener('click', startChallenge);
+        challengeBtn.addEventListener('touchend', (e) => { e.preventDefault(); startChallenge(); });
+        
+        const challengeBackBtn = document.getElementById('challenge-back-btn');
+        challengeBackBtn.addEventListener('click', showHome);
+        challengeBackBtn.addEventListener('touchend', (e) => { e.preventDefault(); showHome(); });
+        
+        const challengeShareBtn = document.getElementById('challenge-share-btn');
+        challengeShareBtn.addEventListener('click', shareChallenge);
+        challengeShareBtn.addEventListener('touchend', (e) => { e.preventDefault(); shareChallenge(); });
         
         // Share button
-        document.getElementById('share-btn').addEventListener('click', shareToTelegram);
+        const shareBtn = document.getElementById('share-btn');
+        shareBtn.addEventListener('click', shareToTelegram);
+        shareBtn.addEventListener('touchend', (e) => { e.preventDefault(); shareToTelegram(); });
         
         // Tower selection
         document.querySelectorAll('.tower-btn').forEach(btn => {
             btn.addEventListener('click', () => {
+                document.querySelectorAll('.tower-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedTowerType = btn.dataset.type;
+                selectedTower = null;
+                updateSelectedTowerInfo();
+            });
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
                 document.querySelectorAll('.tower-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
                 selectedTowerType = btn.dataset.type;
@@ -213,8 +256,16 @@ const Game = (() => {
         // Select first tower by default
         document.querySelector('.tower-btn.damage').classList.add('selected');
         
-        // Canvas interaction
+        // Canvas interaction - support both click and touch
         canvas.addEventListener('click', handleCanvasClick);
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            handleCanvasClick({ clientX: touch.clientX, clientY: touch.clientY });
+        }, { passive: false });
         
         // Mute button
         const muteBtn = document.getElementById('mute-btn');
