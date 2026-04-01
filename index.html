@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tower Rush</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <button id="mute-btn" class="mute-btn">🔊</button>
+            <div class="title">
+                <h1>TOWER RUSH</h1>
+                <p class="subtitle">60 Second Tower Defense</p>
+            </div>
+            <div class="high-score-display">
+                <span class="label">High Score</span>
+                <span id="home-high-score">0</span>
+            </div>
+            <div class="challenge-display" id="challenge-info">
+                🎯 Daily Challenge
+            </div>
+            <div class="menu-buttons">
+                <button id="play-btn" class="btn-primary">▶️ PLAY</button>
+                <button id="challenge-btn" class="btn-challenge">🎯</button>
+                <button id="friends-btn" class="btn-icon">👥</button>
+                <button id="leaderboard-btn" class="btn-icon">🏆</button>
+            </div>
+        </div>
+
+        <!-- Friends Screen -->
+        <div id="friends-screen" class="screen">
+            <div class="friends-content">
+                <h2>👥 Friends</h2>
+                <div class="add-friend-form">
+                    <input type="text" id="friend-name-input" placeholder="Friend name">
+                    <button id="add-friend-btn" class="btn-small">Add</button>
+                </div>
+                <div id="friends-list">
+                    <div class="friends-loading">Loading...</div>
+                </div>
+                <button id="friends-back-btn" class="btn-icon-small">⬅️</button>
+            </div>
+        </div>
+
+        <!-- Challenge Result Screen -->
+        <div id="challenge-result-screen" class="screen">
+            <div class="challenge-result-content">
+                <h2>🎯 Daily Challenge</h2>
+                <div id="challenge-description"></div>
+                <div class="challenge-score">
+                    <span id="challenge-final-score">0</span>
+                </div>
+                <div id="challenge-reward"></div>
+                <div class="challenge-buttons">
+                    <button id="challenge-share-btn" class="btn-icon">📤</button>
+                    <button id="challenge-back-btn" class="btn-icon-small">⬅️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <canvas id="game-canvas"></canvas>
+            <div id="hud">
+                <div class="hud-left">
+                    <div class="level-display">LEVEL <span id="level-num">1</span></div>
+                </div>
+                <div class="hud-center">
+                    <div class="timer"><span id="timer-num">60</span>s</div>
+                </div>
+                <div class="hud-right">
+                    <div class="tokens-display">💰 <span id="token-num">0</span></div>
+                    <div class="score-display">Score: <span id="score-num">0</span></div>
+                </div>
+            </div>
+            <div id="tower-panel">
+                <button class="tower-btn damage" data-type="damage" data-cost="10">
+                    <span class="tower-icon">⚔️</span>
+                    <span class="tower-cost">10</span>
+                </button>
+                <button class="tower-btn income" data-type="income" data-cost="15">
+                    <span class="tower-icon">💎</span>
+                    <span class="tower-cost">15</span>
+                </button>
+                <button class="tower-btn support" data-type="support" data-cost="20">
+                    <span class="tower-icon">✨</span>
+                    <span class="tower-cost">20</span>
+                </button>
+            </div>
+            <div id="selected-tower-info" class="hidden">
+                <span id="upgrade-text">Tap to upgrade</span>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameover-screen" class="screen">
+            <div class="gameover-content">
+                <h2>GAME OVER</h2>
+                <div class="final-score">
+                    <div class="score-row">
+                        <span class="score-label">Level</span>
+                        <span id="final-level">0</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">Portfolio</span>
+                        <span id="final-tokens">0</span>
+                    </div>
+                    <div class="score-row total">
+                        <span class="score-label">Final Score</span>
+                        <span id="final-score">0</span>
+                    </div>
+                </div>
+                <div class="new-high-score hidden" id="new-high-score">🎉 NEW HIGH SCORE! 🎉</div>
+                <div class="gameover-buttons">
+                    <button id="share-btn" class="btn-icon">📤</button>
+                    <button id="replay-btn" class="btn-icon">🔄</button>
+                    <button id="home-btn" class="btn-icon">🏠</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboard-screen" class="screen">
+            <div class="leaderboard-content">
+                <h2>LEADERBOARD</h2>
+                <div id="leaderboard-list">
+                    <div class="leaderboard-loading">Loading...</div>
+                </div>
+                <button id="back-btn" class="btn-icon-small">⬅️</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
