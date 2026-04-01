@@ -129,11 +129,11 @@ const Game = (() => {
     let enemySpawnTimer = 0;
     let incomeTimer = 0;
     
-    // Tower types configuration
+    // Tower types configuration - Prehistoric Theme
     const TOWER_TYPES = {
-        damage: { cost: 10, damage: 10, range: 150, color: '#ff6b6b', name: 'Damage' },
-        income: { cost: 15, damage: 0, range: 0, color: '#ffd93d', name: 'Income', income: 2 },
-        support: { cost: 20, damage: 0, range: 100, color: '#6bcfff', name: 'Support', buff: 0.2 }
+        damage: { cost: 10, damage: 10, range: 150, color: '#c95a3a', name: 'Club' },      // Red-brown
+        income: { cost: 15, damage: 0, range: 0, color: '#d4a574', name: 'Gather', income: 2 }, // Golden brown
+        support: { cost: 20, damage: 0, range: 100, color: '#8b7355', name: 'Drum', buff: 0.2 }  // Stone brown
     };
     
     // Initialize
@@ -858,18 +858,25 @@ const Game = (() => {
     }
     
     function render() {
-        // Clear canvas
-        ctx.fillStyle = '#1a1a2e';
+        // Clear canvas with prehistoric background
+        ctx.fillStyle = '#1a0f08';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Draw grid background
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+        // Draw cave background texture
+        ctx.strokeStyle = 'rgba(92, 61, 30, 0.15)';
         ctx.lineWidth = 1;
-        for (let x = 0; x < canvas.width; x += 40) {
+        for (let x = 0; x < canvas.width; x += 50) {
             ctx.beginPath();
             ctx.moveTo(x, 0);
             ctx.lineTo(x, canvas.height);
             ctx.stroke();
+        }
+        for (let y = 0; y < canvas.height; y += 50) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
         }
         for (let y = 0; y < canvas.height; y += 40) {
             ctx.beginPath();

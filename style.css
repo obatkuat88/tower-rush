@@ -9,9 +9,9 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #fff;
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(180deg, #2d1810 0%, #1a0f0a 50%, #0d0705 100%);
+    color: #e8d4b8;
 }
 
 #app {
@@ -37,25 +37,43 @@ html, body {
     display: flex;
 }
 
-/* Home Screen */
+/* Home Screen - Prehistoric Theme */
 #home-screen {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: 
+        radial-gradient(ellipse at 50% 100%, rgba(139, 90, 43, 0.3) 0%, transparent 60%),
+        linear-gradient(180deg, #3d2817 0%, #1a0f08 100%);
 }
 
 .title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .title h1 {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 900;
-    letter-spacing: 4px;
-    background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcfff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+    letter-spacing: 3px;
+    color: #d4a574;
+    text-shadow: 
+        2px 2px 0 #5c3d1e,
+        4px 4px 8px rgba(0,0,0,0.5);
+    font-family: 'Georgia', serif;
+}
+
+.title .subtitle {
+    font-size: 0.9rem;
+    color: #a67c52;
+    margin-top: 8px;
+    letter-spacing: 2px;
+    font-style: italic;
+}
+
+/* Decorations - Cave paintings style */
+.title::before {
+    content: '🦴';
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 10px;
 }
 
 .subtitle {
@@ -70,108 +88,154 @@ html, body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
+    background: linear-gradient(180deg, #5c3d1e 0%, #3d2817 100%);
+    border: 2px solid #a67c52;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
     cursor: pointer;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #d4a574;
 }
 
 .mute-btn:active {
     transform: scale(0.95);
+    background: linear-gradient(180deg, #8b5a2b 0%, #5c3d1e 100%);
 }
 
 .high-score-display {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 40px;
-    padding: 20px 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 30px;
+    padding: 15px 30px;
+    background: 
+        linear-gradient(180deg, rgba(93, 62, 30, 0.6) 0%, rgba(45, 24, 16, 0.8) 100%);
+    border-radius: 8px;
+    border: 2px solid #5c3d1e;
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        0 4px 12px rgba(0,0,0,0.4);
 }
 
 .high-score-display .label {
-    font-size: 0.9rem;
-    color: #888;
+    font-size: 0.85rem;
+    color: #a67c52;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 #home-high-score {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #ffd93d;
+    color: #ffcc66;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-/* Challenge Display */
+/* Challenge Display - Prehistoric */
 .challenge-display {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 24px;
+    padding: 10px 20px;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: #fff;
+    background: linear-gradient(180deg, #8b5a2b 0%, #5c3d1e 100%);
+    border-radius: 6px;
+    border: 2px solid #a67c52;
+    font-size: 0.9rem;
+    color: #e8d4b8;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
 }
 
 .challenge-display:active {
     transform: scale(0.98);
 }
 
-/* Menu Buttons */
+/* Menu Buttons - Horizontal */
 .menu-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 15px;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* Challenge Button */
-.btn-challenge {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-    border: 2px solid #667eea;
-    border-radius: 50%;
-    background: transparent;
-    color: #667eea;
+/* Primary Button - Play */
+.btn-primary {
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: linear-gradient(180deg, #c4956a 0%, #8b5a2b 50%, #5c3d1e 100%);
+    color: #1a0f08;
+    border: 2px solid #d4a574;
+    box-shadow: 
+        0 4px 0 #3d2817,
+        0 6px 12px rgba(0,0,0,0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(2px);
+    box-shadow: 
+        0 2px 0 #3d2817,
+        0 3px 6px rgba(0,0,0,0.4);
+}
+
+/* Challenge Button - Prehistoric */
+.btn-challenge {
+    width: 55px;
+    height: 55px;
+    font-size: 1.4rem;
+    border: 2px solid #a67c52;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #5c3d1e 0%, #3d2817 100%);
+    color: #ffcc66;
+    cursor: pointer;
+    box-shadow: 
+        0 3px 0 #2d1810,
+        0 4px 8px rgba(0,0,0,0.4);
 }
 
 .btn-challenge:active, .btn-challenge.active {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(180deg, #8b5a2b 0%, #5c3d1e 100%);
     color: #fff;
-    transform: scale(0.95);
+    transform: translateY(2px);
+    box-shadow: 
+        0 1px 0 #2d1810,
+        0 2px 4px rgba(0,0,0,0.4);
 }
 
-/* Icon Button */
+/* Icon Button - Prehistoric */
 .btn-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.4rem;
+    background: linear-gradient(180deg, #5c3d1e 0%, #3d2817 100%);
+    border: 2px solid #a67c52;
+    border-radius: 12px;
+    color: #d4a574;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: 
+        0 3px 0 #2d1810,
+        0 4px 8px rgba(0,0,0,0.4);
 }
 
 .btn-icon:active {
-    transform: scale(0.95);
-    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(2px);
+    box-shadow: 
+        0 1px 0 #2d1810,
+        0 2px 4px rgba(0,0,0,0.4);
+    background: linear-gradient(180deg, #8b5a2b 0%, #5c3d1e 100%);
 }
 
 /* Small Icon Button */
@@ -411,27 +475,32 @@ html, body {
 
 .level-display {
     font-size: 0.8rem;
-    color: #6bcfff;
+    color: #a67c52;
     font-weight: 700;
     letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .timer {
     font-size: 1.8rem;
     font-weight: 900;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+    color: #ffcc66;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .tokens-display {
     font-size: 1rem;
-    color: #ffd93d;
+    color: #d4a574;
     font-weight: 700;
+}
+
+.tokens-display span {
+    color: #ffcc66;
 }
 
 .score-display {
     font-size: 0.9rem;
-    color: #fff;
+    color: #e8d4b8;
 }
 
 /* Tower Panel */
@@ -456,31 +525,31 @@ html, body {
     justify-content: center;
     width: 70px;
     height: 70px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(180deg, #5c3d1e 0%, #3d2817 100%);
+    border: 2px solid #a67c52;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: 0 3px 0 #2d1810;
 }
 
 .tower-btn:active, .tower-btn.selected {
-    transform: scale(0.95);
-    border-color: #fff;
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #2d1810;
 }
 
 .tower-btn.damage.selected {
-    background: rgba(255, 107, 107, 0.3);
-    border-color: #ff6b6b;
+    background: linear-gradient(180deg, #8b4513 0%, #5c3d1e 100%);
+    border-color: #c95a3a;
 }
 
 .tower-btn.income.selected {
-    background: rgba(255, 217, 61, 0.3);
-    border-color: #ffd93d;
+    background: linear-gradient(180deg, #a67c52 0%, #8b5a2b 100%);
+    border-color: #d4a574;
 }
 
 .tower-btn.support.selected {
-    background: rgba(107, 207, 255, 0.3);
-    border-color: #6bcfff;
+    background: linear-gradient(180deg, #6b5344 0%, #5c3d1e 100%);
+    border-color: #8b7355;
 }
 
 .tower-icon {
@@ -517,7 +586,9 @@ html, body {
 
 /* Game Over Screen */
 #gameover-screen {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: 
+        radial-gradient(ellipse at 50% 100%, rgba(139, 90, 43, 0.3) 0%, transparent 60%),
+        linear-gradient(180deg, #3d2817 0%, #1a0f08 100%);
 }
 
 .gameover-content {
@@ -526,23 +597,28 @@ html, body {
 }
 
 .gameover-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 30px;
-    letter-spacing: 4px;
-    color: #ff6b6b;
+    letter-spacing: 3px;
+    color: #c95a3a;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .final-score {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(93, 62, 30, 0.6) 0%, rgba(45, 24, 16, 0.8) 100%);
+    border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+    border: 2px solid #5c3d1e;
 }
 
 .score-row {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
+    border-bottom: 1px solid rgba(166, 124, 82, 0.3);
+}
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
